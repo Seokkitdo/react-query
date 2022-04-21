@@ -28,7 +28,7 @@ const ImageWrapper = styled.div`
   top: 0;
   right: 0;
   opacity: 0.4;
-  transform: translate(960x, -96px);
+  transform: translate(96px, -96px);
 `;
 
 const Image = styled.img`
@@ -47,7 +47,7 @@ const IndexPage: React.FC = () => {
       </Description>
       <PokomonList />
       <ImageWrapper>
-        <Image src="/assets/poketball.svg" />
+        <Image src="/assets/pocketball.svg" />
       </ImageWrapper>
     </Base>
   );
