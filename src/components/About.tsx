@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled/macro";
 import { Ability, Color, Type } from "../types";
 import { mapTypeToHex } from "../utils";
+import Abilities from "./Abilities";
 
 const Base = styled.div`
     padding: 20px;
@@ -166,6 +167,7 @@ const About: React.FC<Props> = ({
                     </InfoItem>
                 </InfoContainer>
             </InfoContainerWrapper>
+            {abilities && <Abilities abilities={abilities}/>}
         </Base>
     )
 }
