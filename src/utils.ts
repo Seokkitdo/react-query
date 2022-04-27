@@ -38,3 +38,6 @@ export const mapTypeToHex = (type?: string) => {
       default: return '#6B7280';
     }
   }
+
+  export const formatNumbering = (pokemonIndex: number | string): string =>
+  `#${(typeof pokemonIndex === 'number' ? String(pokemonIndex) : pokemonIndex).padStart(3, '0')}`

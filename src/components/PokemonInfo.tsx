@@ -1,7 +1,15 @@
-import React from "react";
-import styled from "@emotion/styled/macro";
-import { mapColorToHex, mapTypeToHex } from './../utils';
-import { Color, Type } from "../types";
+import React from 'react';
+import styled from '@emotion/styled/macro';
+
+import { Color, Type } from '../types';
+import { formatNumbering, mapColorToHex, mapTypeToHex } from '../utils';
+
+type Props = {
+  id: string;
+  name?: string;
+  types?: Array<Type>;
+  color?: Color;
+}
 
 const Base = styled.div<{ color?: string }>`
   display: flex;
@@ -80,43 +88,42 @@ const Image = styled.img`
   object-fit: contain;
 `;
 
-interface Props {
-    id: string;
-    name?: string;
-    types?: Array<Type>;
-    color?: Color;
-}
-
-const PokemonInfo: React.FC<Props> = ({id, name, types, color}) => {
-
-    const formatNumbering = (index: string): string => {
-        return `#${(index).padStart(3, '0')}`
+const PokemonInfo: React.FC<Props> = ({ id, name, color, types }) => {
+  return (
+    <Base color={mapColorToHex(color?.name)}>
+      <ImageWrapper>
+        <Image src="/assets/pocketball.svg" />
+      </ImageWrapper>
+      <InfoWrapper>
+        <Name>
+          {name}
+        </Name>
+        {
+          id && (
+            <Index>
+              {formatNumbering(id)}
+            </Index>
+          )
+        }
+      </InfoWrapper>
+      {
+        types && (
+          <TypeList>
+            {
+              types.map(({ type }, idx) => (
+                <TypeWrapper key={idx} color={mapTypeToHex(type.name)}>
+                  <TypeInfo src={`/assets/${type.name}.svg`} />
+                </TypeWrapper>
+              ))
+            }
+          </TypeList>
+        )
       }
-
-    return (
-        <Base color={mapColorToHex(color?.name)}>
-            <ImageWrapper>
-                <Image src="/assets/poketball.svg" />
-            </ImageWrapper>
-            <InfoWrapper>
-                <Name>{name}</Name>
-                <Index>{formatNumbering(id)}</Index>
-            </InfoWrapper>
-            <TypeList>
-                { 
-                types?.map(({type}, idx) => (
-                    <TypeWrapper key={idx} color={mapTypeToHex(type.name)}>
-                        <TypeInfo src={`/assets/${type.name}.svg`}/>
-                    </TypeWrapper>
-                ))
-                
-                }
-            </TypeList>
-            <ThumbnailImageWrapper>
-            <ThumbnailImage src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`} alt="image" />
-            </ThumbnailImageWrapper>
-        </Base>
-    )
+      <ThumbnailImageWrapper>
+        <ThumbnailImage src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`} alt="image" />
+      </ThumbnailImageWrapper>
+    </Base>
+  )
 }
 
 export default PokemonInfo;
